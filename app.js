@@ -22,7 +22,7 @@ const resetGame = () => {
 boxes.forEach( (box) => {
     box.addEventListener("click", () => {
         //console.log("box was clicked");
-        count++;
+        
         if(turnO) {     //player Y
             box.innerText = "0";
             turnO = false;
@@ -30,11 +30,13 @@ boxes.forEach( (box) => {
             box.innerText = "X";
             turnO = true;
         }
-
-
-        checkWinner();
         box.disabled = "true";
-        
+        count++;
+
+        let isWinner = checkWinner();
+        if (count === 9 && !isWinner) {
+            isDraw();
+          }
     });
 });
 
@@ -57,7 +59,7 @@ const showWinner = (winner) => {
     disbleBoxes();
 }
 
-const showDraw = () => {
+const isDraw = () => {
     msg.innerText = `The Match is Drawn, you can play again!`;
     msgContainer.classList.remove("hide");
     disbleBoxes();
@@ -75,8 +77,6 @@ const checkWinner = () => {
             if (pos1Val === pos2Val && pos2Val === pos3Val){
                 
                 showWinner(pos1Val);
-            } else if(count>8) {
-                showDraw();
             }
          }
     }
