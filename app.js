@@ -13,6 +13,7 @@ let winPatterns = [
 let count = 0;
 
 const resetGame = () => {
+    count = 0;
     turnO = true;
     enableBoxes();
     msgContainer.classList.add("hide");
