@@ -10,6 +10,7 @@ let winPatterns = [
     [1,4,7],[2,5,8],[2,4,6],
     [3,4,5],[6,7,8]
 ];
+let count = 0;
 
 const resetGame = () => {
     turnO = true;
@@ -21,7 +22,7 @@ const resetGame = () => {
 boxes.forEach( (box) => {
     box.addEventListener("click", () => {
         //console.log("box was clicked");
-
+        count++;
         if(turnO) {     //player Y
             box.innerText = "0";
             turnO = false;
@@ -56,6 +57,12 @@ const showWinner = (winner) => {
     disbleBoxes();
 }
 
+const showDraw = () => {
+    msg.innerText = `The Match is Drawn, you can play again!`;
+    msgContainer.classList.remove("hide");
+    disbleBoxes();
+}
+
 const checkWinner = () => {
     for (pattern of winPatterns) {
         // console.log(boxes[pattern[0]].innerText, boxes[pattern[1]].innerText, boxes[pattern[2]].innerText);
@@ -68,6 +75,8 @@ const checkWinner = () => {
             if (pos1Val === pos2Val && pos2Val === pos3Val){
                 
                 showWinner(pos1Val);
+            } else if(count>8) {
+                showDraw();
             }
          }
     }
